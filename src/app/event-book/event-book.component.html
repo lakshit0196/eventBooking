@@ -6,7 +6,12 @@
     Number of available seats: {{eventBookingObj.seatsAvailable}}
   </div>
 
-  <form style="border: 1px solid;padding: 15px;">
+  <div class="event-booking-section">
+<div class="imgsection">
+  <img style="width: 100px; height:100px;">
+</div>
+<div class="book-detail-section">
+  <form>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
@@ -60,8 +65,11 @@
         <input (keydown)="onKeyDown($event)" type="text" class="form-control" [name]="seat+'a'" >
       </div>
     </div>
-    <button type="button" (click)="onSubmit()" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
-    <button [routerLink]="'/events'" type="button" class="btn btn-secondary">Cancel</button>
+    <div class="footer">
+      <button type="button" (click)="onSubmit()" class="btn btn-primary button">Submit</button>
+      <button [routerLink]="'/events'"  type="button" class="btn btn-secondary button">Cancel</button>
+    </div>
   </form>
-
+</div>
+  </div>
 </div>
