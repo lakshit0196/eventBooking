@@ -3,3 +3,25 @@
     align-items: center;
     justify-content: center;
 }
+
+.event-booking-section {
+  display: flex;
+  border: 1px solid;
+  justify-content: space-between;
+}
+.imgsection {
+  width: 20%;
+    margin: 10px;
+}
+.book-detail-section {
+  margin: 10px;
+    width: 80%;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  .button {
+    width: 25%;
+    margin: 10px;
+  }
+}
