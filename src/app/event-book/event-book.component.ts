@@ -18,7 +18,8 @@ export class EventBookComponent implements OnInit {
     phone: '',
     seats: '',
 
-  }
+  };
+  validEmail = true;
 
   constructor(private route: ActivatedRoute, private eventsService: EventsServiceService, ) { }
 
@@ -36,7 +37,17 @@ export class EventBookComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.eventAttendeeObj);
+    // tslint:disable-next-line: max-line-length
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.validEmail = (re.test(this.eventAttendeeObj.email));
+  }
+  onPhoneKeyDown(event) {
+    const RegExpression = new RegExp('^[0-9]+$');
+    if (!(event.target.value + event.key).toString().match(RegExpression)) { event.preventDefault(); }
+  }
+  onKeyDown(event) {
+    const RegExpression = /^[a-zA-Z\s]*$/;
+    if (!(event.target.value + event.key).toString().match(RegExpression)) { event.preventDefault(); }
   }
   fillSeatsArr(num) {
     this.seatsArray = [];

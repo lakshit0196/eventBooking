@@ -10,19 +10,28 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
-        <input class="form-control" name="AttendeeName" type="text" [(ngModel)]="eventAttendeeObj.name" >
+        <input class="form-control" (keydown)="onKeyDown($event)" name="AttendeeName" type="text" [(ngModel)]="eventAttendeeObj.name" >
+        <span *ngIf="!eventAttendeeObj.name">
+          Name is required
+        </span>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
-        <input  class="form-control" name="AttendeeEmail" type="email" [(ngModel)]="eventAttendeeObj.email">
+        <input (ngModelChange)="validEmail = true;"  class="form-control" name="AttendeeEmail" type="email" [(ngModel)]="eventAttendeeObj.email">
+        <span *ngIf="!eventAttendeeObj.email">
+          Email is required
+        </span>
+        <span *ngIf="!validEmail">
+          Enter Valid Email
+        </span>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Phone Number</label>
       <div class="col-sm-10">
-        <input class="form-control" name="AttendeePh" type="text" [(ngModel)]="eventAttendeeObj.phone">
+        <input (keydown)="onPhoneKeyDown($event)" class="form-control" name="AttendeePh" type="text" [(ngModel)]="eventAttendeeObj.phone">
       </div>
     </div>
     <div class="form-group row">
@@ -48,11 +57,11 @@
     <div *ngFor="let seat of seatsArray" class="form-group row">
       <label  class="col-sm-2 col-form-label">Name of attendees {{' ' + seat }}</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" [name]="seat+'a'" >
+        <input (keydown)="onKeyDown($event)" type="text" class="form-control" [name]="seat+'a'" >
       </div>
     </div>
-    <button type="button" (click)="onSubmit()" class="btn btn-primary">Submit</button>
-    <button type="button" class="btn btn-secondary">Cancel</button>
+    <button type="button" (click)="onSubmit()" class="btn btn-primary">Submit</button> &nbsp; &nbsp;
+    <button [routerLink]="'/events'" type="button" class="btn btn-secondary">Cancel</button>
   </form>
 
 </div>

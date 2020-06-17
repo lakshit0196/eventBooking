@@ -5,7 +5,8 @@ import { EventListComponent } from './event-list/event-list.component';
 
 
 const routes: Routes = [
-  {path : '', component: EventListComponent},
+  {path : '', redirectTo: 'events', pathMatch: 'full'},
+  {path : 'events', component: EventListComponent},
   {path : 'book/:id', component: EventBookComponent},
 ];
 
