@@ -1,0 +1,35 @@
+
+<div class="container">
+  <div class="row searchBox">
+    <input placeholder="SEARCH EVENTS" [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange()" type="text"/>
+
+  </div>
+  <div class="row" *ngIf="eventListFilterArr && eventListFilterArr.length > 0">
+    <div *ngFor="let event of eventListFilterArr; index as i" class="col-sm-3">
+      <div style="border: 1px solid black; margin: 15px;">
+        <p class="textCenter">{{event.name}}</p>
+       <div class="col-sm-12">
+         <div class="col-sm-4">
+          <img style="width: 100px; height:100px;">
+         </div>
+         <div class="col-sm-8">
+          <span>
+            {{event.date}}
+           </span>
+           <span>
+             Seats Available: {{event.seatsAvailable}}
+           </span>
+         </div>
+       </div>
+        <span>
+          {{event.id}}
+         <button [routerLink]="'/book/' + event.id" *ngIf="event.seatsAvailable"> BookNow </button>
+         <label *ngIf="!event.seatsAvailable"> Sold Out </label>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="eventListFilterArr && eventListFilterArr.length === 0">
+    No results found!
+  </div>
+</div>
