@@ -25,3 +25,17 @@
     margin: 10px;
   }
 }
+.errormsg {
+  color: red;
+    font-size: 14px;
+}
+
+.successMsg {
+  color: green;
+  font-weight: 900;
+  font-size: 20px;
+  text-align: center;
+}
+.btn-primary:disabled, .btn-secondary:disabled {
+  opacity: 0.3;
+}

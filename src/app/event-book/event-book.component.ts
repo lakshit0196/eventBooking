@@ -19,8 +19,9 @@ export class EventBookComponent implements OnInit {
     seats: '',
 
   };
+  public showerror = false;
   validEmail = true;
-
+public isTicketBooked = false;
   constructor(private route: ActivatedRoute, private eventsService: EventsServiceService, ) { }
 
   ngOnInit() {
@@ -40,6 +41,15 @@ export class EventBookComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.validEmail = (re.test(this.eventAttendeeObj.email));
+    if(!this.eventAttendeeObj.name ||
+      !this.eventAttendeeObj.seats  || !this.eventAttendeeObj.email || !this.validEmail
+      || this.isAttendeeRequired()
+      ) {
+        this.showerror = true;
+    } else {
+      this.showerror = false;
+      this.isTicketBooked = true;
+    }
   }
   onPhoneKeyDown(event) {
     const RegExpression = new RegExp('^[0-9]+$');
@@ -54,6 +64,20 @@ export class EventBookComponent implements OnInit {
     for (let i = 2; i <= num; i++) {
       this.seatsArray.push(i);
     }
+  }
+
+  public isSeatNotAvailable(): boolean {
+   return this.eventBookingObj.seatsAvailable < this.eventAttendeeObj.seats
+  }
+
+  public isAttendeeRequired(): boolean {
+    let isEmpty = false;
+    this.seatsArray.forEach(element => {
+      if (!this.eventAttendeeObj[element + 'attendee']) {
+        isEmpty = true;
+      }
+    });
+    return isEmpty;
   }
 
 }

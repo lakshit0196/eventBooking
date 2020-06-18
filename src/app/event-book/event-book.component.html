@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row centerBox"><h1>
     {{eventBookingObj.name}}
-  </h1></div>
+  </h1>
+</div>
+<div *ngIf = "isTicketBooked" class= "successMsg"> Tickets booked </div>
   <div class="row centerBox">
     Number of available seats: {{eventBookingObj.seatsAvailable}}
   </div>
@@ -16,8 +18,8 @@
       <label class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
         <input class="form-control" (keydown)="onKeyDown($event)" name="AttendeeName" type="text" [(ngModel)]="eventAttendeeObj.name" >
-        <span *ngIf="!eventAttendeeObj.name">
-          Name is required
+        <span *ngIf="!eventAttendeeObj.name && showerror" class="errormsg">
+          Name is required 
         </span>
       </div>
     </div>
@@ -25,10 +27,10 @@
       <label class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
         <input (ngModelChange)="validEmail = true;"  class="form-control" name="AttendeeEmail" type="email" [(ngModel)]="eventAttendeeObj.email">
-        <span *ngIf="!eventAttendeeObj.email">
+        <span *ngIf="!eventAttendeeObj.email && showerror" class="errormsg">
           Email is required
         </span>
-        <span *ngIf="!validEmail">
+        <span *ngIf="!validEmail" class="errormsg">
           Enter Valid Email
         </span>
       </div>
@@ -58,16 +60,25 @@
           </ul>
         </div>
       </div>
+      <span *ngIf="!eventAttendeeObj.seats && showerror" class="errormsg">
+        Please enter the number of seats
+      </span>
+      <span *ngIf="isSeatNotAvailable()" class="errormsg">
+        Number of seats selected is more than available seats
+      </span>
     </div>
     <div *ngFor="let seat of seatsArray" class="form-group row">
       <label  class="col-sm-2 col-form-label">Name of attendees {{' ' + seat }}</label>
       <div class="col-sm-10">
-        <input (keydown)="onKeyDown($event)" type="text" class="form-control" [name]="seat+'a'" >
+        <input (keydown)="onKeyDown($event)" type="text" class="form-control" [(ngModel)]="eventAttendeeObj[seat + 'attendee']" [name]="seat+'a'" >
+        <span *ngIf="!eventAttendeeObj[seat + 'attendee']  && showerror" class="errormsg">
+          Please enter the name of Attendee #{{seat}}
+        </span>
       </div>
     </div>
     <div class="footer">
-      <button type="button" (click)="onSubmit()" class="btn btn-primary button">Submit</button>
-      <button [routerLink]="'/events'"  type="button" class="btn btn-secondary button">Cancel</button>
+      <button type="button" (click)="onSubmit()" [disabled]="isTicketBooked" class="btn btn-primary button">Submit</button>
+      <button [routerLink]="'/events'"  type="button" [disabled] = "isTicketBooked" class="btn btn-secondary button">Cancel</button>
     </div>
   </form>
 </div>
