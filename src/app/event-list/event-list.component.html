@@ -13,13 +13,16 @@
           <img style="width: 100px; height:100px;">
          </div>
          <div class="detail-section">
-          <span>
-            {{event.date}}
-           </span>
-           <span>
-             Seats Available: {{event.seatsAvailable}}
-           </span>
-           <span>
+           <div class ="detail">
+            <span>
+              {{event.date}}
+             </span>
+             <span>
+               Seats Available: {{event.seatsAvailable}}
+             </span>
+  
+           </div>
+                     <span>
            <button class="book-now-button btn btn-primary" [routerLink]="'/book/' + event.id" *ngIf="event.seatsAvailable"> BookNow </button>
            <label *ngIf="!event.seatsAvailable"> Sold Out </label>
           </span>

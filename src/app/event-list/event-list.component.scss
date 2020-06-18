@@ -15,6 +15,10 @@
   margin: 10px;
 }
 .detail-section {
+  .detail {
+    display: flex;
+    flex-direction: column;
+  }
   .book-now-button {
     margin-bottom: 2px;
   }

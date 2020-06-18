@@ -12,6 +12,10 @@
 .imgsection {
   width: 20%;
     margin: 10px;
+    .imageArea {
+      height: 100%;
+      width: 100%;
+    }
 }
 .book-detail-section {
   margin: 10px;
