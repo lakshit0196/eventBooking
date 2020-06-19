@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { EventsServiceService } from '../events-service.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-event-book',
@@ -37,14 +38,11 @@ public isTicketBooked = false;
       }
     });
   }
-  onSubmit() {
+  onSubmit(eventForm: NgForm) {
     // tslint:disable-next-line: max-line-length
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.validEmail = (re.test(this.eventAttendeeObj.email));
-    if(!this.eventAttendeeObj.name ||
-      !this.eventAttendeeObj.seats  || !this.eventAttendeeObj.email || !this.validEmail
-      || this.isAttendeeRequired()
-      ) {
+    if(!eventForm.valid || !this.eventAttendeeObj.seats || !this.validEmail) {
         this.showerror = true;
     } else {
       this.showerror = false;
@@ -69,15 +67,4 @@ public isTicketBooked = false;
   public isSeatNotAvailable(): boolean {
    return this.eventBookingObj.seatsAvailable < this.eventAttendeeObj.seats
   }
-
-  public isAttendeeRequired(): boolean {
-    let isEmpty = false;
-    this.seatsArray.forEach(element => {
-      if (!this.eventAttendeeObj[element + 'attendee']) {
-        isEmpty = true;
-      }
-    });
-    return isEmpty;
-  }
-
 }

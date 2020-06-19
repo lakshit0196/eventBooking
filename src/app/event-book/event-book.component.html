@@ -13,11 +13,11 @@
   <img class="imageArea">
 </div>
 <div class="book-detail-section">
-  <form>
+  <form #eventForm='ngForm'>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
-        <input class="form-control" (keydown)="onKeyDown($event)" name="AttendeeName" type="text" [(ngModel)]="eventAttendeeObj.name" >
+        <input class="form-control" required (keydown)="onKeyDown($event)" name="AttendeeName" type="text" [(ngModel)]="eventAttendeeObj.name" >
         <span *ngIf="!eventAttendeeObj.name && showerror" class="errormsg">
           Name is required 
         </span>
@@ -26,7 +26,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Email</label>
       <div class="col-sm-10">
-        <input (ngModelChange)="validEmail = true;"  class="form-control" name="AttendeeEmail" type="email" [(ngModel)]="eventAttendeeObj.email">
+        <input (ngModelChange)="validEmail = true;"  class="form-control" name="AttendeeEmail" type="email" required [(ngModel)]="eventAttendeeObj.email">
         <span *ngIf="!eventAttendeeObj.email && showerror" class="errormsg">
           Email is required
         </span>
@@ -70,14 +70,14 @@
     <div *ngFor="let seat of seatsArray" class="form-group row">
       <label  class="col-sm-2 col-form-label">Name of attendees {{' ' + seat }}</label>
       <div class="col-sm-10">
-        <input (keydown)="onKeyDown($event)" type="text" class="form-control" [(ngModel)]="eventAttendeeObj[seat + 'attendee']" [name]="seat+'a'" >
-        <span *ngIf="!eventAttendeeObj[seat + 'attendee']  && showerror" class="errormsg">
+        <input (keydown)="onKeyDown($event)" type="text" class="form-control" required [(ngModel)]="eventAttendeeObj[seat + 'attendee']" [name]="seat+'a'" >
+        <span *ngIf="!eventAttendeeObj[seat + 'attendee'] && showerror" class="errormsg">
           Please enter the name of Attendee #{{seat}}
         </span>
       </div>
     </div>
     <div class="footer">
-      <button type="button" (click)="onSubmit()" [disabled]="isTicketBooked" class="btn btn-primary button">Submit</button>
+      <button type="button" (click)="onSubmit(eventForm)" [disabled]="isTicketBooked" class="btn btn-primary button">Submit</button>
       <button [routerLink]="'/events'"  type="button" [disabled] = "isTicketBooked" class="btn btn-secondary button">Cancel</button>
     </div>
   </form>
